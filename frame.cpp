@@ -5,6 +5,24 @@ Editor *editor;
 void callBack() {
 
 }
+void openFile() {
+	char *src = new char[256];
+
+	selectFile(src, NULL, NULL);
+	if (src[0] == '\0')return;
+
+	editor->open(src);
+	editor->refresh();
+}
+void saveFile() {
+	editor->save();
+}
+void closeFile() {
+	editor->close();
+}
+void exitEditor() {
+	exit(0);
+}
 
 void sgSetup() {
 	initWindow(640, 480, "Editor", BIT_MAP);
@@ -15,10 +33,10 @@ void sgSetup() {
 	int idFile = addMenuList("文件", 0);
 	int idEdit = addMenuList("编辑", 0);
 	int idHelp = addMenuList("帮助", 0);
-	addMenuItem("打开\tCtrl + O", idFile, callBack);
-	addMenuItem("关闭", idFile, callBack);
-	addMenuItem("保存\tCtrl + S", idFile, callBack);
-	addMenuItem("退出\tF4", idFile, callBack);
+	addMenuItem("打开\tCtrl + O", idFile, openFile);
+	addMenuItem("保存\tCtrl + S", idFile, saveFile);
+	addMenuItem("关闭", idFile, closeFile);
+	addMenuItem("退出\tF4", idFile, exitEditor);
 	addMenuItem("撤销\tCtrl + Z", idEdit, callBack);
 	addMenuItem("重做\tCtrl + Y", idEdit, callBack);
 	addMenuSeparator(idEdit);
@@ -55,4 +73,7 @@ void sgLoop() {
 		mouse = biosMouse(0);
 		editor->mouse(mouse);
 	}
+
+	clearKeyBuffer();
+	clearMouseBuffer();
 }
