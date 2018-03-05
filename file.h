@@ -8,7 +8,11 @@ private:
 	Block *content;
 	File *next;
 
+	int startBlock = -1;
+	int totalBlock = 0;
+
 	friend class Editor;
 public:
-	File(char *filename) : filename(filename), content(NULL), next(NULL) {};
+	File(char *filename);
+	~File();
 };
