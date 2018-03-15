@@ -11,19 +11,21 @@ using std::vector;
 class Line {
 private:
 	string *content;
-	Line *next;
+	Line *next, *prev;
+
+	int focusPos = 0;
 
 	friend class Block;
 	friend class File;
 	friend class Editor;
 public:
+	Line(string str = string());
 	Line(string *c) :content(c), next(NULL) {}
 	Line(vector<string> &cont, int &count, int offset = 0);
 	~Line();
-	
-	char get();
 
-	void append(char c);
-	void change(int pos, char c);
-	void remove(int pos);
+	void insert(char c);
+	int remove();
+	void append(string str);
+	string cut();
 };
