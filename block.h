@@ -6,14 +6,21 @@
 class Block {
 private:
 	Line *content;
-	Block *next;
+	Block *next, *prev;
 
-	int startLine = -1;
-	int totalLine = 0;
+	int start = 0;
+	int total = 0;
+	int focus = -1;
+
+	int size = 0;
 
 	friend class File;
 	friend class Editor;
 public:
+	Block(string str = string());
 	Block(vector<string> &cont, int &count, int offset = 0);
 	~Block();
+
+	Line *startLine();
+	Line *focusLine();
 };
