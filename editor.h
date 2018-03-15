@@ -12,9 +12,16 @@ private:
 	int active = -1;
 
 public:
+	vecTwo editorSize;
+	vecTwo cursorPos;
+
+	int fontSize;
+	string fontName;
+
 	Editor();
 	~Editor();
 
+	void create();
 	void open(char *filename);
 	void refresh();
 	void close();
@@ -22,5 +29,7 @@ public:
 
 	void key(int key);
 	void mouse(vecThree mouse);
+
+	File *actFile();
 };
 
