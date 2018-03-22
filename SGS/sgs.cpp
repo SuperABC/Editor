@@ -6,7 +6,7 @@
 extern  Editor *editor;
 
 void interprete() {
-	Lexeme l = Lexeme();
+	SgsLex l = SgsLex();
 	Syntax s = Syntax();
 	Machine m = Machine();
 
@@ -26,17 +26,20 @@ void interprete() {
 		s.input(l.strId, l.output)->parse();
 		m.input(s.output, s.globeClassType, s.globeFunc, s.globeVar)->execute();
 	}
-	catch (LexemeException *le) {
+	catch (SGSLexemeException *le) {
 		//cout << l.get() << endl;
 		alertInfo(le->message(), "Lexeme error", 0);
+		delete le;
 	}
 	catch (SyntaxException *se) {
 		//cout << l.get() << endl;
 		alertInfo(se->message(), "Syntax error", 0);
+		delete se;
 	}
 	catch (MachineException *me) {
 		//cout << l.get() << endl;
 		alertInfo(me->message(), "Machine error", 0);
+		delete me;
 	}
 
 	s.clearMem();
