@@ -3,11 +3,9 @@
 
 Editor *editor;
 
-int ctrl = 0;
-
 /* Menu call. */
 void callBack() {
-
+	
 }
 
 void newFile() {
@@ -27,6 +25,14 @@ void openFile() {
 	editor->open(src);
 	editor->refresh();
 }
+void explorerDir() {
+	string tmp = string("explorer.exe ") + editor->actFile()->getDir();
+	WinExec(tmp.data(), WM_CREATE);
+}
+void cmdDir() {
+	string tmp = string("cmd.exe /k cd ") + editor->actFile()->getDir();
+	WinExec(tmp.data(), WM_CREATE);
+}
 void saveFile() {
 	editor->save();
 }
@@ -43,11 +49,42 @@ void resaveFile() {
 void closeFile() {
 	editor->close();
 }
+void closeAll() {
+	while (editor->getNum() > 0)
+		editor->close();
+}
 void exitEditor() {
 	exit(0);
 }
+void undoOperate() {
+
+}
+void redoOperate() {
+
+}
+void textCopy() {
+
+}
+void textCut() {
+
+}
+void textPaste() {
+
+}
+void textClear() {
+
+}
+void inverseComment() {
+
+}
+void inverseCapital() {
+
+}
 void interpRun() {
 	createThread(interprete);
+}
+void interpDebug() {
+
 }
 void versionInfo() {
 	alertInfo("现在还没有完成第一版哟~再等等吧", "版本",
@@ -83,6 +120,28 @@ void logCopyCall(widgetObj *w, int x, int y, int status) {
 	mouseClickDefault(w, x, y, status);
 	if (w->status & WIDGET_SELECTED)copyText((char *)getWidgetByName("log")->content);
 }
+void scrollVertMove(widgetObj *w, int x, int y) {
+	mouseMoveScrollVert(w, x, y);
+	if (w->status & WIDGET_PRESSED) {
+		if (editor->actFile()->startLine() != w->value) {
+			editor->actFile()->setStart(w->value);
+			editor->refresh();
+		}
+	}
+}
+void scrollVertClick(widgetObj *w, int x, int y, int status) {
+	mouseClickScrollVert(w, x, y, status);
+	if (w->status & WIDGET_PRESSED) {
+		editor->actFile()->setStart(w->value);
+		editor->refresh();
+	}
+}
+void scrollHorizMove(widgetObj *w, int x, int y) {
+	mouseMoveScrollHoriz(w, x, y);
+}
+void scrollHorizClick(widgetObj *w, int x, int y, int status) {
+	mouseClickScrollHoriz(w, x, y, status);
+}
 
 /* Initialize func. */
 void layoutMenu() {
@@ -97,28 +156,29 @@ void layoutMenu() {
 	addMenuItem("新建\tCtrl + N", idFile, newFile);
 	addMenuItem("打开\tCtrl + O", idFile, openFile);
 	int idDir = addMenuList("打开文件夹", idFile);
-	addMenuItem("资源管理器", idDir, callBack);
-	addMenuItem("命令行", idDir, callBack);
+	addMenuItem("资源管理器", idDir, explorerDir);
+	addMenuItem("命令行", idDir, cmdDir);
 	addMenuItem("保存\tCtrl + S", idFile, saveFile);
 	addMenuItem("另存为", idFile, resaveFile);
 	addMenuItem("关闭", idFile, closeFile);
-	addMenuItem("全部关闭", idFile, callBack);
+	addMenuItem("全部关闭", idFile, closeAll);
 	addMenuSeparator(idFile);
 	addMenuItem("退出\tF4", idFile, exitEditor);
 
-	addMenuItem("撤销\tCtrl + Z", idEdit, callBack);
-	addMenuItem("重做\tCtrl + Y", idEdit, callBack);
+	addMenuItem("撤销\tCtrl + Z", idEdit, undoOperate);
+	addMenuItem("重做\tCtrl + Y", idEdit, redoOperate);
+	addMenuItem("操作记录", idEdit, callBack);
 	addMenuSeparator(idEdit);
-	addMenuItem("复制\tCtrl + C", idEdit, callBack);
-	addMenuItem("剪切\tCtrl + X", idEdit, callBack);
-	addMenuItem("粘贴\tCtrl + V", idEdit, callBack);
-	addMenuItem("清除", idEdit, callBack);
+	addMenuItem("复制\tCtrl + C", idEdit, textCopy);
+	addMenuItem("剪切\tCtrl + X", idEdit, textCut);
+	addMenuItem("粘贴\tCtrl + V", idEdit, textPaste);
+	addMenuItem("清除", idEdit, textClear);
 	addMenuSeparator(idEdit);
-	addMenuItem("添加/删除注释", idEdit, callBack);
-	addMenuItem("大小写转换", idEdit, callBack);
+	addMenuItem("添加/删除注释", idEdit, inverseComment);
+	addMenuItem("大小写转换", idEdit, inverseCapital);
 
-	addMenuItem("解释运行", idComp, interpRun);
-	addMenuItem("解释调试", idComp, callBack);
+	addMenuItem("解释运行\tCtrl + R", idComp, interpRun);
+	addMenuItem("解释调试\tCtrl + D", idComp, interpDebug);
 	addMenuSeparator(idComp);
 	addMenuItem("编译器设置", idComp, callBack);
 
@@ -160,47 +220,47 @@ void sgLoop() {
 		first = 0;
 		editor->refresh();
 	}
-
+	
 	if (biosKey(1)) {
 		key = biosKey(0);
-
-		if (key == SG_CTRL) {
-			ctrl = 1;
-			return;
-		}
-		else if (key == (SG_CTRL | 0X8000)) {
-			ctrl = 0;
-			return;
-		}
-
 		if (key == SG_F4)exitEditor();
+		if (key == (SG_CTRLBIT | 'n'))newFile();
+		if (key == (SG_CTRLBIT | 'o'))openFile();
+		if (key == (SG_CTRLBIT | 's'))saveFile();
+		if (key == (SG_CTRLBIT | 'z'))undoOperate();
+		if (key == (SG_CTRLBIT | 'y'))redoOperate();
+		if (key == (SG_CTRLBIT | 'c'))textCopy();
+		if (key == (SG_CTRLBIT | 'x'))textCut();
+		if (key == (SG_CTRLBIT | 'v'))textPaste();
+		if (key == (SG_CTRLBIT | 'r'))interpRun();
+		if (key == (SG_CTRLBIT | 'd'))interpDebug();
 
-		if (ctrl) {
-
-		}
-		else {
-			editor->key(key);
-		}
+		editor->key(key);
 	}
 	if (biosMouse(1).m) {
 		mouse = biosMouse(0);
 		editor->mouse(mouse);
 	}
-
-	if ((clock() - time) % 800 < 400) {
-		setColor(editor->cursorColor.r, editor->cursorColor.g, editor->cursorColor.b);
-		putQuad(editor->editorBase.x + editor->cursorPos.x - 1,
-			editor->editorBase.y + editor->cursorPos.y + 1,
-			editor->editorBase.x + editor->cursorPos.x,
-			editor->editorBase.y + editor->cursorPos.y + editor->fontSize + 4 - 4,
-			SOLID_FILL);
+	if (mouseStatus(SG_LEFT_BUTTON) == SG_BUTTON_DOWN) {
+		editor->drag(mousePos());
 	}
-	else {
-		setColor(64, 64, 64);
-		putQuad(editor->editorBase.x + editor->cursorPos.x - 1,
-			editor->editorBase.y + editor->cursorPos.y + 1,
-			editor->editorBase.x + editor->cursorPos.x,
-			editor->editorBase.y + editor->cursorPos.y + editor->fontSize + 4 - 4,
-			SOLID_FILL);
+
+	if (editor->cursorPos.y >= 0 && editor->cursorPos.y + editor->fontSize + 4 < editor->editorSize.y) {
+		if ((clock() - time) % 800 < 400) {
+			setColor(editor->cursorColor.r, editor->cursorColor.g, editor->cursorColor.b);
+			putQuad(editor->editorBase.x + editor->cursorPos.x - 1,
+				editor->editorBase.y + editor->cursorPos.y + 1,
+				editor->editorBase.x + editor->cursorPos.x,
+				editor->editorBase.y + editor->cursorPos.y + editor->fontSize + 4 - 4,
+				SOLID_FILL);
+		}
+		else {
+			setColor(64, 64, 64);
+			putQuad(editor->editorBase.x + editor->cursorPos.x - 1,
+				editor->editorBase.y + editor->cursorPos.y + 1,
+				editor->editorBase.x + editor->cursorPos.x,
+				editor->editorBase.y + editor->cursorPos.y + editor->fontSize + 4 - 4,
+				SOLID_FILL);
+		}
 	}
 }
