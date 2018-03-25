@@ -5,15 +5,15 @@ class Popup {
 private:
 	std::vector<std::string>content;
 
+	void layout();
+
 public:
 	Popup();
 	~Popup();
 
-	void layout();
-	void clear();
 	void add(std::string input);
-	void add(std::vector<std::string>);
+	void add(std::vector<std::string> input);
 	void prepare();
 	void show(int x, int y);
-	void cease();
+	void clear();
 };
