@@ -12,6 +12,9 @@ private:
 	int total = 0;
 	int focus = -1;
 
+	int selectBegin = -1;
+	int selectEnd = -1;
+
 	int size = 0;
 
 	friend class File;
@@ -23,4 +26,5 @@ public:
 
 	Line *startLine();
 	Line *focusLine();
+	Line *lineAt(int n);
 };
