@@ -19,7 +19,7 @@ Line::~Line() {
 	delete content;
 }
 
-void Line::insert(char c) {
+string Line::insert(char c) {
 	if (content->size() == focusPos) {
 		*content += c;
 		focusPos++;
@@ -31,8 +31,12 @@ void Line::insert(char c) {
 		}
 		(*content)[focusPos++] = c;
 	}
+
+	int wordOff = content->rfind(' ') + 1;
+	while (content->operator[](wordOff) == '\t')wordOff++;
+	return string(content->begin() + wordOff, content->end());
 }
-int  Line::remove() {
+int Line::remove() {
 	if (focusPos == 0)return 1;
 
 	if (content->size() == focusPos) {
@@ -51,8 +55,15 @@ int  Line::remove() {
 void Line::append(string str) {
 	*content += str;
 }
-string Line::cut() {
-	string ret = content->c_str() + focusPos;
-	*content = content->substr(0, focusPos);
+string Line::cut(int pos) {
+	string ret;
+	if (pos == -1) {
+		ret = content->c_str() + focusPos;
+		*content = content->substr(0, focusPos);
+	}
+	else {
+		ret = content->c_str() + pos;
+		*content = content->substr(0, pos);
+	}
 	return ret;
 }
