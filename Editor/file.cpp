@@ -5,6 +5,8 @@ File::File() : filename("new file"), format(""), next(NULL), prev(NULL) {
 	start = 0;
 	total = 1;
 	focus = 0;
+	selectBegin = 0;
+	selectEnd = 0;
 }
 File::File(char *filename) : filename(filename),
 	content(NULL), next(NULL), prev(NULL) {
@@ -26,6 +28,8 @@ File::File(char *filename) : filename(filename),
 	content = new Block(whole, total);
 	start = 0;
 	focus = 0;
+	selectBegin = 0;
+	selectEnd = 0;
 	fin.close();
 };
 File::~File() {
@@ -34,6 +38,13 @@ File::~File() {
 
 string File::getPath() {
 	return filename;
+}
+string File::getDir() {
+	int end = filename.rfind('/');
+	if (end == -1)
+		end = filename.rfind('\\');
+	if (end == -1)return string();
+	else return string(filename.begin(), filename.begin() + end);
 }
 string File::getName() {
 	int end = filename.rfind('/');
@@ -53,4 +64,39 @@ Block *File::focusBlock() {
 	for (int i = 0; i < focus; i++)tmpBlock = tmpBlock->next;
 	return tmpBlock;
 
+}
+Block *File::blockAt(int n){
+	Block *tmpBlock = content;
+	for (int i = 0; i < n; i++)tmpBlock = tmpBlock->next;
+	return tmpBlock;
+}
+int File::totalLine() {
+	Block *tmpBlock = content;
+	int line = 0;
+	while (tmpBlock) {
+		line += tmpBlock->total;
+		tmpBlock = tmpBlock->next;
+	}
+	return line;
+}
+int File::startLine() {
+	Block *tmpBlock = content;
+	int line = 0;
+	for (int i = 0; i < start; i++) {
+		line += tmpBlock->total;
+		tmpBlock = tmpBlock->next;
+	}
+	line += tmpBlock->start;
+	return line;
+}
+void File::setStart(int line) {
+	Block *tmpBlock = content;
+	int block = 0;
+	while(line >= tmpBlock->total) {
+		line -= tmpBlock->total;
+		block++;
+		tmpBlock = tmpBlock->next;
+	}
+	start = block;
+	startBlock()->start = line;
 }
