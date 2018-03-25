@@ -15,6 +15,9 @@ private:
 
 	int focusPos = 0;
 
+	int selectBegin = -1;
+	int selectEnd = -1;
+
 	friend class Block;
 	friend class File;
 	friend class Editor;
@@ -24,8 +27,8 @@ public:
 	Line(vector<string> &cont, int &count, int offset = 0);
 	~Line();
 
-	void insert(char c);
+	string insert(char c);
 	int remove();
 	void append(string str);
-	string cut();
+	string cut(int pos = -1);
 };
