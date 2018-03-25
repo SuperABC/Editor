@@ -1,3 +1,4 @@
+#include <sstream>
 #include "editor/editor.h"
 #include "sgs/machine.h"
 
@@ -63,16 +64,31 @@ void redoOperate() {
 
 }
 void textCopy() {
-
+	vector<string> cont = editor->copy();
+	string str = "";
+	for (auto s : cont)str += s;
+	copyText(str.data());
 }
 void textCut() {
-
+	textCopy();
+	editor->cut();
 }
 void textPaste() {
-
+	char *str = (char *)pasteText();
+	std::istringstream sin(str);
+	vector<string> input;
+	string tmp;
+	while (!sin.eof()) {
+		getline(sin, tmp);
+		input.push_back(tmp);
+	}
+	editor->paste(input);
 }
 void textClear() {
-
+	editor->cut();
+}
+void textChoose() {
+	editor->choose();
 }
 void inverseComment() {
 
@@ -232,6 +248,7 @@ void sgLoop() {
 		if (key == (SG_CTRLBIT | 'c'))textCopy();
 		if (key == (SG_CTRLBIT | 'x'))textCut();
 		if (key == (SG_CTRLBIT | 'v'))textPaste();
+		if (key == (SG_CTRLBIT | 'a'))textChoose();
 		if (key == (SG_CTRLBIT | 'r'))interpRun();
 		if (key == (SG_CTRLBIT | 'd'))interpDebug();
 
