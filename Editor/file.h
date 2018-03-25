@@ -13,6 +13,9 @@ private:
 	int total = 0;
 	int focus = -1;
 
+	int selectBegin = -1;
+	int selectEnd = -1;
+
 	friend class Editor;
 public:
 	File();
@@ -20,8 +23,13 @@ public:
 	~File();
 
 	string getPath();
+	string getDir();
 	string getName();
 
 	Block *startBlock();
 	Block *focusBlock();
+	Block *blockAt(int n);
+	int totalLine();
+	int startLine();
+	void setStart(int line);
 };
