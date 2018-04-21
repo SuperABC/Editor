@@ -25,6 +25,7 @@ public:
 	string getPath();
 	string getDir();
 	string getName();
+	string getFormat();
 
 	Block *startBlock();
 	Block *focusBlock();
