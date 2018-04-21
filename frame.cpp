@@ -1,6 +1,7 @@
 #include <sstream>
 #include "editor/editor.h"
-#include "sgs/machine.h"
+#include "sgs/sgsdebug.h"
+#include "mips/mipsemu.h"
 
 Editor *editor;
 
@@ -97,10 +98,18 @@ void inverseCapital() {
 
 }
 void interpRun() {
-	createThread(interprete);
+	string format = editor->actFile()->getFormat();
+	if(format == "sgs")
+		createThread(sgsInterprete);
+	else if(format == "s")
+		createThread(mipsAssemble);
 }
 void interpDebug() {
-
+	string format = editor->actFile()->getFormat();
+	if (format == "sgs")
+		createThread(sgsDebug);
+	else if (format == "s")
+		createThread(mipsEmulate);
 }
 void versionInfo() {
 	alertInfo("现在还没有完成第一版哟~再等等吧", "版本",
@@ -193,8 +202,8 @@ void layoutMenu() {
 	addMenuItem("添加/删除注释", idEdit, inverseComment);
 	addMenuItem("大小写转换", idEdit, inverseCapital);
 
-	addMenuItem("解释运行\tCtrl + R", idComp, interpRun);
-	addMenuItem("解释调试\tCtrl + D", idComp, interpDebug);
+	addMenuItem("解释/编译\tCtrl + R", idComp, interpRun);
+	addMenuItem("调试\tCtrl + D", idComp, interpDebug);
 	addMenuSeparator(idComp);
 	addMenuItem("编译器设置", idComp, callBack);
 
