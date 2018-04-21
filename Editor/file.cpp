@@ -53,6 +53,9 @@ string File::getName() {
 	if (end == -1)return filename;
 	else return string(filename.begin() + end + 1, filename.end());
 }
+string File::getFormat() {
+	return format;
+}
 
 Block *File::startBlock() {
 	Block *tmpBlock = content;
