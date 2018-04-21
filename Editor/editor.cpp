@@ -437,7 +437,7 @@ void Editor::paste(vector<string> cont) {
 	int tmpFocus = tmpLine->content->length() - tmpLine->focusPos;
 	cont[cont.size() - 1].append(tmpLine->cut());
 	tmpLine->append(cont[0]);
-	for (int i = 1; i < cont.size(); i++) {
+	for (int i = 1; i < (int)cont.size(); i++) {
 		if (tmpBlock->size > BLOCK_SIZE) { // miss size change
 			if (tmpBlock->next) {
 				tmpBlock->next->prev = new Block(cont[i]);
