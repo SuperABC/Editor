@@ -557,7 +557,7 @@ varNode Machine::exp(varNode *e) {
 		varNode r = exp(e->right);
 
 		switch (*(int *)e->val) {
-		case OP_PLUS:
+		case SGS_OP_PLUS:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_FLOAT;
 				ret.val = new float(*(float *)(l.val) + *(float *)(r.val));
@@ -581,7 +581,7 @@ varNode Machine::exp(varNode *e) {
 				strcat((char *)ret.val, (char *)l.val);
 			}
 			break;
-		case OP_MINUS:
+		case SGS_OP_MINUS:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_FLOAT;
 				ret.val = new float(*(float *)(r.val) - *(float *)(l.val));
@@ -599,7 +599,7 @@ varNode Machine::exp(varNode *e) {
 				ret.val = new int(*(int *)(r.val) - *(int *)(l.val));
 			}
 			break;
-		case OP_MULTY:
+		case SGS_OP_MULTY:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_FLOAT;
 				ret.val = new float(*(float *)(l.val) * *(float *)(r.val));
@@ -617,7 +617,7 @@ varNode Machine::exp(varNode *e) {
 				ret.val = new int(*(int *)(l.val) * *(int *)(r.val));
 			}
 			break;
-		case OP_DIVIDE:
+		case SGS_OP_DIVIDE:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_FLOAT;
 				if (*(float *)(l.val) == 0)
@@ -643,14 +643,14 @@ varNode Machine::exp(varNode *e) {
 				ret.val = new int(*(int *)(r.val) / *(int *)(l.val));
 			}
 			break;
-		case OP_MOD:
+		case SGS_OP_MOD:
 			if (l.t == _VT_INTEGER && r.t == _VT_INTEGER) {
 				ret.t = _VT_INTEGER;
 				ret.val = new int(*(int *)(r.val) % *(int *)(l.val));
 			}
 			else error("mod", VE_TYPEMISMATCH);
 			break;
-		case OP_EQUAL:
+		case SGS_OP_EQUAL:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_BOOL;
 ret.val = new bool(*(float *)(r.val) == *(float *)(l.val));
@@ -668,7 +668,7 @@ ret.val = new bool(*(float *)(r.val) == *(float *)(l.val));
 				ret.val = new bool(*(int *)(r.val) == *(int *)(l.val));
 			}
 			break;
-		case OP_GREATER:
+		case SGS_OP_GREATER:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_BOOL;
 				ret.val = new bool(*(float *)(r.val) > *(float *)(l.val));
@@ -686,7 +686,7 @@ ret.val = new bool(*(float *)(r.val) == *(float *)(l.val));
 				ret.val = new bool(*(int *)(r.val) > *(int *)(l.val));
 			}
 			break;
-		case OP_SMALLER:
+		case SGS_OP_SMALLER:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_BOOL;
 				ret.val = new bool(*(float *)(r.val) < *(float *)(l.val));
@@ -704,7 +704,7 @@ ret.val = new bool(*(float *)(r.val) == *(float *)(l.val));
 				ret.val = new bool(*(int *)(r.val) < *(int *)(l.val));
 			}
 			break;
-		case OP_NSMALLER:
+		case SGS_OP_NSMALLER:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_BOOL;
 				ret.val = new bool(*(float *)(r.val) >= *(float *)(l.val));
@@ -722,7 +722,7 @@ ret.val = new bool(*(float *)(r.val) == *(float *)(l.val));
 				ret.val = new bool(*(int *)(r.val) >= *(int *)(l.val));
 			}
 			break;
-		case OP_NGREATER:
+		case SGS_OP_NGREATER:
 			if (l.t == _VT_FLOAT && r.t == _VT_FLOAT) {
 				ret.t = _VT_BOOL;
 				ret.val = new bool(*(float *)(r.val) <= *(float *)(l.val));
@@ -802,6 +802,20 @@ ret.val = new bool(*(float *)(r.val) == *(float *)(l.val));
 	}
 
 	return ret;
+}
+void Machine::setup() {
+	for (unsigned int i = 0; i < globeFunc.size(); i++) {
+		if (globeFunc[i].declare.name == "sg setup") {
+			execute(&globeFunc[i].content, NULL, i);
+		}
+	}
+}
+void Machine::loop() {
+	for (unsigned int i = 0; i < globeFunc.size(); i++) {
+		if (globeFunc[i].declare.name == "sg main") {
+			execute(&globeFunc[i].content, NULL, i);
+		}
+	}
 }
 
 void Machine::print(varNode *par) {
@@ -918,6 +932,64 @@ varNode Machine::random(varNode *par) {
 	}
 	error("", VE_BROKEN);
 	return varNode();
+}
+
+// Graphic interfaces for sgl.
+void Machine::initWindow(varNode *par) {
+	int width, height;
+	const char *title = "SGS-SGL";
+	while (par) {
+		if (par->name == "width")width = *(int *)par->val;
+		else if (par->name == "height")height = *(int *)par->val;
+		else if (par->name == "title")title = (char *)par->val;
+		par = par->next;
+	}
+	::initWindow(width, height, title, BIT_MAP);
+}
+void Machine::setColor(varNode *par) {
+	int r, g, b;
+	while (par) {
+		if (par->name == "red")r = *(int *)par->val;
+		else if (par->name == "green")g = *(int *)par->val;
+		else if (par->name == "blue")b = *(int *)par->val;
+		par = par->next;
+	}
+	::setColor(r, g, b);
+}
+void Machine::clearScreen(varNode *par) {
+	::clearScreen();
+}
+void Machine::putLine(varNode *par) {
+	int x1, y1, x2, y2;
+	while (par) {
+		if (par->name == "first x")x1 = *(int *)par->val;
+		else if (par->name == "first y")y1 = *(int *)par->val;
+		else if (par->name == "second x")x2 = *(int *)par->val;
+		else if (par->name == "second y")y2 = *(int *)par->val;
+		par = par->next;
+	}
+	::putLine(x1, y1, x2, y2, SOLID_LINE);
+}
+void Machine::putQuad(varNode *par) {
+	int x1, y1, x2, y2, mode;
+	while (par) {
+		if (par->name == "left")x1 = *(int *)par->val;
+		else if (par->name == "top")y1 = *(int *)par->val;
+		else if (par->name == "right")x2 = *(int *)par->val;
+		else if (par->name == "bottom")y2 = *(int *)par->val;
+		else if (par->name == "filling")mode = *(bool *)par->val;
+		par = par->next;
+	}
+	::putQuad(x1, y1, x2, y2, mode);
+}
+void Machine::putTriangle(varNode *par) {
+
+}
+void Machine::putCircle(varNode *par) {
+
+}
+void Machine::putEllipse(varNode *par) {
+
 }
 
 void Machine::clearMem() {
