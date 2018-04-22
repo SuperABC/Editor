@@ -1,14 +1,14 @@
-#include "machine.h"
+#include "sgsmach.h"
 #include "memory.h"
 #include <fstream>
 #include "../editor/editor.h"
 
 extern  Editor *editor;
 
-void interprete() {
+void sgsInterprete() {
 	SgsLex l = SgsLex();
-	Syntax s = Syntax();
-	Machine m = Machine();
+	SgsSyntax s = SgsSyntax();
+	SgsMachine m = SgsMachine();
 
 	string input;
 
@@ -44,4 +44,8 @@ void interprete() {
 
 	s.clearMem();
 	m.clearMem();
+}
+
+void sgsDebug() {
+
 }
