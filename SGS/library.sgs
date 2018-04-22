@@ -14,3 +14,5 @@
 new class point with integer x, integer y.
 new class quad with integer left, integer right, integer top, integer bottom.
 
+new class bitmap with integer widht, integer height, string data.
+
