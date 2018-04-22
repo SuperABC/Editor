@@ -26,6 +26,8 @@ public:
 	void execute(stateSeq *s, varNode *par, int funcid = -1);
 	void step(stateSeq *s);
 	varNode exp(varNode *e);
+	void setup();
+	void loop();
 
 	void print(varNode *par);
 	void out(varNode *par);
@@ -34,8 +36,16 @@ public:
 	varNode time(varNode *par);
 	varNode random(varNode *par);
 
-	void clearMem();
+	void initWindow(varNode *par);
+	void setColor(varNode *par);
+	void clearScreen(varNode *par);
+	void putLine(varNode *par);
+	void putQuad(varNode *par);
+	void putTriangle(varNode *par);
+	void putCircle(varNode *par);
+	void putEllipse(varNode *par);
 
+	void clearMem();
 	static void error(const char *inst, int type);
 };
 
