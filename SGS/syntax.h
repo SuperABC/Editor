@@ -1,6 +1,6 @@
 #ifndef SYNTAX_H
 #define SYNTAX_H
-#include "lexeme.h"
+#include "sgslex.h"
 #include "memory.h"
 #include <stack>
 
@@ -87,7 +87,7 @@ struct funcNode {
 
 class Syntax {
 private:
-	vector<tokenPrim> content;
+	vector<sgsTokenPrim> content;
 	vector<string> strId;
 
 	Memory synMem;
@@ -110,13 +110,13 @@ public:
 	stateSeq *last;
 
 	Syntax();
-	Syntax(vector<string> &ids, vector<tokenPrim> &input);
+	Syntax(vector<string> &ids, vector<sgsTokenPrim> &input);
 	~Syntax();
 	void prepare();
 
 	static const char *opStr(int id);
 
-	Syntax *input(vector<string> &ids, vector<tokenPrim> &src);
+	Syntax *input(vector<string> &ids, vector<sgsTokenPrim> &src);
 	stateSeq *parse();
 
 	void parseLibrary(string lib);
