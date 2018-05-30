@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\sgs">
+      <UniqueIdentifier>{0c4578fc-7978-488c-98ab-b2d9506c1f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\sgs">
+      <UniqueIdentifier>{da634cee-c8c6-4732-8817-8c01f54b49fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\editor">
+      <UniqueIdentifier>{ebe93775-794d-406d-8f4b-0331c9e8b20f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\editor">
+      <UniqueIdentifier>{bedd5c9a-a8da-4a56-a631-7c4b95f6f38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\util">
+      <UniqueIdentifier>{118138bd-b91d-4523-8899-89e4c05b9b82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\util">
+      <UniqueIdentifier>{81036dd9-c962-4f4d-9b61-7c8a285f7f0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\mips">
+      <UniqueIdentifier>{16f3b2c6-cb23-48f6-b01d-0eb4aa05ca61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\mips">
+      <UniqueIdentifier>{3456c572-477a-4322-85e1-a164a718ffb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\cpp">
+      <UniqueIdentifier>{ec579b30-1531-4d71-8843-b9c412cac241}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\cpp">
+      <UniqueIdentifier>{d46027e5-8e3c-4266-8e63-ccc03eb7381c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="frame.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SGS\sgs.cpp">
+      <Filter>源文件\sgs</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\block.cpp">
+      <Filter>源文件\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\editor.cpp">
+      <Filter>源文件\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\file.cpp">
+      <Filter>源文件\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\line.cpp">
+      <Filter>源文件\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\json.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SGS\sgslex.cpp">
+      <Filter>源文件\sgs</Filter>
+    </ClCompile>
+    <ClCompile Include="Mips\mipslex.cpp">
+      <Filter>源文件\mips</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\operation.cpp">
+      <Filter>源文件\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\popup.cpp">
+      <Filter>源文件\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Mips\mipsasm.cpp">
+      <Filter>源文件\mips</Filter>
+    </ClCompile>
+    <ClCompile Include="Mips\mipsemu.cpp">
+      <Filter>源文件\mips</Filter>
+    </ClCompile>
+    <ClCompile Include="Mips\mips.cpp">
+      <Filter>源文件\mips</Filter>
+    </ClCompile>
+    <ClCompile Include="SGS\sgsyntax.cpp">
+      <Filter>源文件\sgs</Filter>
+    </ClCompile>
+    <ClCompile Include="SGS\sgsmach.cpp">
+      <Filter>源文件\sgs</Filter>
+    </ClCompile>
+    <ClCompile Include="SGS\sgsmem.cpp">
+      <Filter>源文件\sgs</Filter>
+    </ClCompile>
+    <ClCompile Include="SGS\sgsdebug.cpp">
+      <Filter>源文件\sgs</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\lang.cpp">
+      <Filter>源文件\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpp\gcc.cpp">
+      <Filter>源文件\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpp\clex.cpp">
+      <Filter>源文件\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpp\pipe.cpp">
+      <Filter>源文件\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\input.cpp">
+      <Filter>源文件\editor</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Editor\editor.h">
+      <Filter>头文件\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\file.h">
+      <Filter>头文件\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\line.h">
+      <Filter>头文件\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\block.h">
+      <Filter>头文件\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\json.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="SGS\sgslex.h">
+      <Filter>头文件\sgs</Filter>
+    </ClInclude>
+    <ClInclude Include="Mips\mipslex.h">
+      <Filter>头文件\mips</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\lang.h">
+      <Filter>头文件\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\operation.h">
+      <Filter>头文件\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\popup.h">
+      <Filter>头文件\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Mips\mipsasm.h">
+      <Filter>头文件\mips</Filter>
+    </ClInclude>
+    <ClInclude Include="Mips\mipsemu.h">
+      <Filter>头文件\mips</Filter>
+    </ClInclude>
+    <ClInclude Include="SGS\sgsyntax.h">
+      <Filter>头文件\sgs</Filter>
+    </ClInclude>
+    <ClInclude Include="SGS\sgsmach.h">
+      <Filter>头文件\sgs</Filter>
+    </ClInclude>
+    <ClInclude Include="SGS\sgsmem.h">
+      <Filter>头文件\sgs</Filter>
+    </ClInclude>
+    <ClInclude Include="SGS\sgsdebug.h">
+      <Filter>头文件\sgs</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp\gcc.h">
+      <Filter>头文件\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp\clex.h">
+      <Filter>头文件\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp\pipe.h">
+      <Filter>头文件\cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\input.h">
+      <Filter>头文件\editor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.ini">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="log.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

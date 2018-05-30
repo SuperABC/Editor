@@ -1,0 +1,38 @@
+new function sg setup.
+start sg setup.
+	init window with width 640, height 480, title "SGL is the best.".
+end sg setup.
+
+let integer x be 320.
+let integer y be 240.
+let integer dir x be 1.
+let integer dir y be 1.
+new function sg main.
+start sg main.
+	set color with red 255, green 255, blue 0.
+	clear screen.
+	set color with red 255, green 0, blue 0.
+	put quad with left x - 20, right x + 20, top y - 20, bottom y + 20, filling true.
+	
+	if dir x = 1 then let x be x + 4.
+	else let x be x - 4.end if.
+	if dir y = 1 then let y be y + 2.
+	else let y be y - 2.end if.
+	if x >= 620 then 
+		let x be 1239 - x.
+		let dir x be 0.
+	end if.
+	if y >= 460 then 
+		let y be 919 - y.
+		let dir y be 0.
+	end if.
+	if x < 20 then 
+		let x be 40 - x.
+		let dir x be 1.
+	end if.
+	if y < 20 then 
+		let y be 40 - y.
+		let dir y be 1.
+	end if.
+	
+end sg main.

@@ -1,0 +1,3 @@
+let bool op1 be true.
+let bool op2 be false.
+outln with content op1 || op2.

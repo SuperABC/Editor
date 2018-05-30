@@ -1,0 +1,30 @@
+new function sg setup.
+start sg setup.
+	init window with width 640, height 480, title "SGL is the best.".
+end sg setup.
+
+let integer x be 320.
+let integer y be 240.
+let bool first be true.
+new function sg main.
+start sg main.
+	if first then
+		let first be false.
+		clear key buffer.
+	end if.
+
+	set color with red 255, green 255, blue 0.
+	clear screen.
+	set color with red 255, green 0, blue 0.
+	put quad with left x - 20, right x + 20, top y - 20, bottom y + 20, filling true.
+	
+	let integer key input be 0.
+	if has key event then 
+		let key input be last key.
+		if key input = "a" then let x be x - 4. end if.
+		if key input = "d" then let x be x + 4. end if.
+		if key input = "w" then let y be y - 4. end if.
+		if key input = "s" then let y be y + 4. end if.
+	end if.
+	
+end sg main.

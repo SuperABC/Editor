@@ -1,0 +1,22 @@
+new function sg setup.
+start sg setup.
+	init window with width 640, height 480, title "SGL is the best.".
+end sg setup.
+
+let integer red be 0.
+let integer green be 0.
+let integer blue be 0.
+new function sg main.
+start sg main.
+	if red = green && blue < 252 then let blue be blue + 4.
+	else if red + green = 252 && blue > 0 then let blue be blue - 4.
+	else if red = 0 && blue = 252 && green < 252 then let green be green + 4.
+	else if red = 252 && blue = 252 && green > 0 then let green be green - 4.
+	else if blue = 0 && green = 252 && red < 252 then let red be red + 4.
+	else if blue = 0 && green = 0 && red > 0 then let red be red - 4.
+	end if.
+	
+	set color with red red, green green, blue blue.
+	clear screen.
+	
+end sg main.
