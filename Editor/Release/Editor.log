@@ -1,12 +1,1 @@
-﻿  mips.cpp
-  mipsasm.cpp
-  mipsemu.cpp
-  frame.cpp
-  正在生成代码
-  65 of 2231 functions ( 2.9%) were compiled, the rest were copied from previous compilation.
-    47 functions were new in current compilation
-    34 functions had inline decision re-evaluated but remain unchanged
-  已完成代码的生成
-winsgl.lib(winsgl.obj) : warning LNK4099: 未找到 PDB“SGL.pdb”(使用“winsgl.lib(winsgl.obj)”或在“C:\Users\MLKJ\Documents\Visual Studio 2017\Projects\Editor\Release\SGL.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-winsgl.lib(widget.obj) : warning LNK4099: 未找到 PDB“SGL.pdb”(使用“winsgl.lib(widget.obj)”或在“C:\Users\MLKJ\Documents\Visual Studio 2017\Projects\Editor\Release\SGL.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-  Editor.vcxproj -> C:\Users\MLKJ\Documents\Visual Studio 2017\Projects\Editor\Release\Editor.exe
+﻿
