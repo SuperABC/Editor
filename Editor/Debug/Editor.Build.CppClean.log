@@ -23,12 +23,43 @@ c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\clex.obj
 c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\json.obj
 c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\sgsyntax.obj
 c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\sgsmem.obj
+c:\users\mlkj\documents\github\editor\editor\debug\vc141.pdb
+c:\users\mlkj\documents\github\editor\editor\debug\vc141.idb
+c:\users\mlkj\documents\github\editor\editor\debug\sgs.obj
+c:\users\mlkj\documents\github\editor\editor\debug\sgsmach.obj
+c:\users\mlkj\documents\github\editor\editor\debug\sgslex.obj
+c:\users\mlkj\documents\github\editor\editor\debug\sgsdebug.obj
+c:\users\mlkj\documents\github\editor\editor\debug\mipslex.obj
+c:\users\mlkj\documents\github\editor\editor\debug\mipsasm.obj
+c:\users\mlkj\documents\github\editor\editor\debug\mips.obj
+c:\users\mlkj\documents\github\editor\editor\debug\frame.obj
+c:\users\mlkj\documents\github\editor\editor\debug\popup.obj
+c:\users\mlkj\documents\github\editor\editor\debug\operation.obj
+c:\users\mlkj\documents\github\editor\editor\debug\line.obj
+c:\users\mlkj\documents\github\editor\editor\debug\lang.obj
+c:\users\mlkj\documents\github\editor\editor\debug\input.obj
+c:\users\mlkj\documents\github\editor\editor\debug\file.obj
+c:\users\mlkj\documents\github\editor\editor\debug\editor.obj
+c:\users\mlkj\documents\github\editor\editor\debug\block.obj
+c:\users\mlkj\documents\github\editor\editor\debug\pipe.obj
+c:\users\mlkj\documents\github\editor\editor\debug\gcc.obj
+c:\users\mlkj\documents\github\editor\editor\debug\clex.obj
+c:\users\mlkj\documents\github\editor\editor\debug\json.obj
+c:\users\mlkj\documents\github\editor\editor\debug\sgsyntax.obj
+c:\users\mlkj\documents\github\editor\editor\debug\sgsmem.obj
+c:\users\mlkj\documents\github\editor\editor\debug\mipsemu.obj
+c:\users\mlkj\documents\github\editor\editor\debug\prime.obj
+c:\users\mlkj\documents\github\editor\editor\debug\navigator.obj
+c:\users\mlkj\documents\github\editor\editor\debug\console.obj
 c:\users\mlkj\documents\visual studio 2017\projects\editor\debug\editor.exe
 c:\users\mlkj\documents\visual studio 2017\projects\editor\debug\editor.ilk
 c:\users\mlkj\documents\visual studio 2017\projects\editor\debug\editor.pdb
-c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\editor.tlog\cl.command.1.tlog
-c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\editor.tlog\cl.read.1.tlog
-c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\editor.tlog\cl.write.1.tlog
-c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\editor.tlog\link.command.1.tlog
-c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\editor.tlog\link.read.1.tlog
-c:\users\mlkj\documents\visual studio 2017\projects\editor\editor\debug\editor.tlog\link.write.1.tlog
+c:\users\mlkj\documents\github\editor\debug\editor.exe
+c:\users\mlkj\documents\github\editor\debug\editor.ilk
+c:\users\mlkj\documents\github\editor\debug\editor.pdb
+c:\users\mlkj\documents\github\editor\editor\debug\editor.tlog\cl.command.1.tlog
+c:\users\mlkj\documents\github\editor\editor\debug\editor.tlog\cl.read.1.tlog
+c:\users\mlkj\documents\github\editor\editor\debug\editor.tlog\cl.write.1.tlog
+c:\users\mlkj\documents\github\editor\editor\debug\editor.tlog\link.command.1.tlog
+c:\users\mlkj\documents\github\editor\editor\debug\editor.tlog\link.read.1.tlog
+c:\users\mlkj\documents\github\editor\editor\debug\editor.tlog\link.write.1.tlog
