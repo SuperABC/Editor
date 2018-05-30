@@ -70,11 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\MLKJ\Documents\Visual Studio 2017\Libraries\include\sgl;C:\Users\MLKJ\Documents\Visual Studio 2017\Projects\Editor\Editor;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\MLKJ\Documents\Visual Studio 2017\Libraries\include\sgl;C:\Users\MLKJ\Documents\GitHub\Editor\Editor;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\Users\MLKJ\Documents\Visual Studio 2017\Libraries\lib\sgl\VS;</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\MLKJ\Documents\Visual Studio 2017\Libraries\include\sgl;C:\Users\MLKJ\Documents\Visual Studio 2017\Projects\Editor\Editor;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\MLKJ\Documents\Visual Studio 2017\Libraries\include\sgl;C:\Users\MLKJ\Documents\GitHub\Editor\Editor;</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\Users\MLKJ\Documents\Visual Studio 2017\Libraries\lib\sgl\VS;</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -127,51 +127,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cpp\clex.cpp" />
-    <ClCompile Include="Cpp\gcc.cpp" />
-    <ClCompile Include="Cpp\pipe.cpp" />
     <ClCompile Include="Editor\block.cpp" />
     <ClCompile Include="Editor\editor.cpp" />
     <ClCompile Include="Editor\file.cpp" />
-    <ClCompile Include="Editor\input.cpp" />
-    <ClCompile Include="Editor\lang.cpp" />
     <ClCompile Include="Editor\line.cpp" />
-    <ClCompile Include="Editor\operation.cpp" />
-    <ClCompile Include="Editor\popup.cpp" />
     <ClCompile Include="frame.cpp" />
-    <ClCompile Include="Mips\mips.cpp" />
-    <ClCompile Include="Mips\mipsasm.cpp" />
-    <ClCompile Include="Mips\mipsemu.cpp" />
-    <ClCompile Include="Mips\mipslex.cpp" />
-    <ClCompile Include="SGS\sgsdebug.cpp" />
-    <ClCompile Include="SGS\sgslex.cpp" />
-    <ClCompile Include="SGS\sgsmach.cpp" />
-    <ClCompile Include="SGS\sgs.cpp" />
-    <ClCompile Include="SGS\sgsmem.cpp" />
-    <ClCompile Include="SGS\sgsyntax.cpp" />
     <ClCompile Include="Util\json.cpp" />
+    <ClCompile Include="Window\console.cpp" />
+    <ClCompile Include="Window\navigator.cpp" />
+    <ClCompile Include="Window\prime.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cpp\clex.h" />
-    <ClInclude Include="Cpp\gcc.h" />
-    <ClInclude Include="Cpp\pipe.h" />
     <ClInclude Include="Editor\block.h" />
     <ClInclude Include="Editor\editor.h" />
     <ClInclude Include="Editor\file.h" />
-    <ClInclude Include="Editor\input.h" />
-    <ClInclude Include="Editor\lang.h" />
     <ClInclude Include="Editor\line.h" />
-    <ClInclude Include="Editor\operation.h" />
-    <ClInclude Include="Editor\popup.h" />
-    <ClInclude Include="Mips\mipsasm.h" />
-    <ClInclude Include="Mips\mipsemu.h" />
-    <ClInclude Include="Mips\mipslex.h" />
-    <ClInclude Include="SGS\sgsdebug.h" />
-    <ClInclude Include="SGS\sgslex.h" />
-    <ClInclude Include="SGS\sgsmach.h" />
-    <ClInclude Include="SGS\sgsmem.h" />
-    <ClInclude Include="SGS\sgsyntax.h" />
     <ClInclude Include="Util\json.h" />
+    <ClInclude Include="Window\console.h" />
+    <ClInclude Include="Window\grid.h" />
+    <ClInclude Include="Window\navigator.h" />
+    <ClInclude Include="Window\prime.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />

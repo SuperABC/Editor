@@ -1,4 +1,0 @@
-editor rwe exe add and/or in machine
-editor rwe exe add else if in syntax
-rwe exe add reserved itself in lexeme
-exe add implement itself in syntax

@@ -1,9 +1,14 @@
 #include <sstream>
-#include "editor/editor.h"
-#include "sgs/sgsdebug.h"
-#include "mips/mipsemu.h"
-#include "cpp/gcc.h"
+#include "Window\grid.h"
+#include "Window\prime.h"
+#include "Window\navigator.h"
+#include "Window\console.h"
+#include "Util\json.h"
 
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+
+vector<Grid *> grids;
 Editor *editor;
 
 /* Menu call. */
@@ -12,90 +17,55 @@ void callBack() {
 }
 
 void newFile() {
-	char dir[256] = { 0 };
-	selectDir(dir, NULL);
-	if (dir[0] == 0)return;
-	editor->create(dir);
-	editor->refresh();
+
 }
 void openFile() {
-	char src[256];
-	memset(src, 0, 256);
 
-	selectFile(src, NULL, NULL);
-	if (src[0] == '\0')return;
-
-	editor->open(src);
-	editor->refresh();
 }
 void explorerDir() {
-	string tmp = string("explorer.exe ") + editor->actFile()->getDir();
-	WinExec(tmp.data(), WM_CREATE);
+
 }
 void cmdDir() {
-	string tmp = string("cmd.exe /k cd ") + editor->actFile()->getDir();
-	WinExec(tmp.data(), WM_CREATE);
+
 }
 void saveFile() {
-	editor->save();
+
 }
 void resaveFile() {
-	char src[256];
-	memset(src, 0, 256);
 
-	selectSave(src, NULL, (char *)"sgs");
-	if (src[0] == '\0')return;
-
-	editor->save(src);
-	editor->refresh();
 }
 void renameFile() {
-	editor->rename();
+
 }
 void closeFile() {
-	editor->close();
-	editor->refresh();
+
 }
 void closeAll() {
-	while (editor->getNum() > 0)
-		editor->close();
-	editor->refresh();
+
 }
 void exitEditor() {
-	exit(0);
+
 }
 void undoOperate() {
-	editor->undo();
+
 }
 void redoOperate() {
-	editor->redo();
+
 }
 void textCopy() {
-	vector<string> cont = editor->copy();
-	string str = "";
-	for (auto s : cont)str += s;
-	copyText(str.data());
+
 }
 void textCut() {
-	textCopy();
-	editor->cut();
+
 }
 void textPaste() {
-	char *str = (char *)pasteText();
-	std::istringstream sin(str);
-	vector<string> input;
-	string tmp;
-	while (!sin.eof()) {
-		getline(sin, tmp);
-		input.push_back(tmp);
-	}
-	editor->paste(input);
+
 }
 void textClear() {
-	editor->cut();
+
 }
 void textChoose() {
-	editor->choose();
+
 }
 void inverseComment() {
 
@@ -104,43 +74,13 @@ void inverseCapital() {
 
 }
 void interpRun() {
-	string format = editor->actFile()->getFormat();
-	if(format == "sgs")
-		createThread(sgsInterprete);
-	else if(format == "s")
-		createThread(mipsAssemble);
-	else if (format == "c" || format == "cpp")
-		createThread(cppRun);
+
 }
 void interpDebug() {
-	string format = editor->actFile()->getFormat();
-	if (format == "sgs") {
-		editor->debugging = true;
-		sgsDebug();
-	}
-	else if (format == "s") {
-		editor->debugging = true;
-		mipsEmulate();
-	}
-	else if (format == "c" || format == "cpp") {
-		editor->debugging = true;
-		cppDebug();
-	}
-	editor->refresh();
+
 }
 void interpRev() {
-	char src[256];
-	memset(src, 0, 256);
 
-	selectFile(src, NULL, NULL);
-	if (src[0] == '\0')return;
-
-	string format = src;
-	format = format.substr(format.rfind('.') + 1);
-
-	if (format == "coe") {
-		mipsArg(src);
-	}
 }
 void versionInfo() {
 	alertInfo("现在还没有完成第一版哟~再等等吧", "版本",
@@ -165,38 +105,7 @@ void userInst() {
 
 /* Widget call. */
 void windowResize(int x, int y) {
-	editor->resize(x, y);
-	editor->refresh();
-}
-void logClearCall(widgetObj *w, int x, int y, int status) {
-	mouseClickDefault(w, x, y, status);
-	if(w->status & WIDGET_SELECTED)editor->logClear();
-}
-void logCopyCall(widgetObj *w, int x, int y, int status) {
-	mouseClickDefault(w, x, y, status);
-	if (w->status & WIDGET_SELECTED)copyText((char *)getWidgetByName("log")->content);
-}
-void scrollVertMove(widgetObj *w, int x, int y) {
-	mouseMoveScrollVert(w, x, y);
-	if (w->status & WIDGET_PRESSED) {
-		if (editor->actFile()->startLine() != w->value) {
-			editor->actFile()->setStart(w->value);
-			editor->refresh();
-		}
-	}
-}
-void scrollVertClick(widgetObj *w, int x, int y, int status) {
-	mouseClickScrollVert(w, x, y, status);
-	if (w->status & WIDGET_PRESSED) {
-		editor->actFile()->setStart(w->value);
-		editor->refresh();
-	}
-}
-void scrollHorizMove(widgetObj *w, int x, int y) {
-	mouseMoveScrollHoriz(w, x, y);
-}
-void scrollHorizClick(widgetObj *w, int x, int y, int status) {
-	mouseClickScrollHoriz(w, x, y, status);
+
 }
 
 /* Initialize func. */
@@ -256,6 +165,27 @@ void layoutMenu() {
 	addMenuItem("使用方法", idInst, userInst);
 
 }
+void layoutGrids() {
+	std::ifstream fin("layout.ini");
+	if (fin.is_open())  {
+		string stream, tmp;
+		while (!fin.eof()) {
+			getline(fin, tmp);
+			stream += tmp;
+		}
+
+		JSON json((char *)stream.data());
+		if (json["enprime"].b)
+			grids.push_back(new Prime((int)json["prime"].array[0], (int)json["prime"].array[1],
+			(int)json["prime"].array[2], (int)json["prime"].array[3]));
+		if (json["ennavigator"].b)
+			grids.push_back(new Navigator((int)json["navigator"].array[0], (int)json["navigator"].array[1],
+			(int)json["navigator"].array[2], (int)json["navigator"].array[3]));
+		if (json["enterminal"].b)
+			grids.push_back(new Console((int)json["terminal"].array[0], (int)json["terminal"].array[1],
+			(int)json["terminal"].array[2], (int)json["terminal"].array[3]));
+	}
+}
 
 /* Main frame. */
 void sgSetup() {
@@ -265,20 +195,20 @@ void sgSetup() {
 	initKey();
 	initMouse(SG_COORDINATE);
 
-	editor = new Editor("config.ini");
 	layoutMenu();
+	layoutGrids();
+	editor = new Editor("config.ini");
 }
 void sgLoop() {
 	int key;
 	vecThree mouse;
-	static int time = clock();
 
 	static int first = 1;
 	if (first) {
 		first = 0;
-		editor->refresh();
+		for (auto p : grids)p->showCont();
 	}
-	
+
 	if (biosKey(1)) {
 		key = biosKey(0);
 		if (key == SG_F4)exitEditor();
@@ -294,39 +224,20 @@ void sgLoop() {
 		if (key == (SG_CTRLBIT | 'r'))interpRun();
 		if (key == (SG_CTRLBIT | 'd'))interpDebug();
 
-		editor->key(key & ~SG_SHIFTBIT);
-
-		editor->refresh();
+		for(auto p : grids)p->keyEvent(key & ~SG_SHIFTBIT);
 	}
 	if (biosMouse(1).m) {
 		mouse = biosMouse(0);
-		editor->mouse(mouse);
-		editor->refresh();
-	}
-	if (mouseStatus(SG_LEFT_BUTTON) == SG_BUTTON_DOWN) {
-		editor->drag(mousePos());
-		editor->refresh();
-	}
-	if (mouseStatus(SG_RIGHT_BUTTON) == SG_BUTTON_DOWN) {
-		editor->refresh();
+		for (auto p : grids)p->mouseEvent(mouse.x, mouse.y, mouse.m);
 	}
 
-	if (editor->cursorPos.y >= 0 && editor->cursorPos.y + editor->fontSize + 4 < editor->editorSize.y) {
-		if ((clock() - time) % 800 < 400) {
-			setColor(editor->cursorColor.r, editor->cursorColor.g, editor->cursorColor.b);
-			putQuad(editor->editorBase.x + editor->cursorPos.x - 1,
-				editor->editorBase.y + editor->cursorPos.y + 1,
-				editor->editorBase.x + editor->cursorPos.x,
-				editor->editorBase.y + editor->cursorPos.y + editor->fontSize + 4 - 4,
-				SOLID_FILL);
-		}
-		else {
-			setColor(64, 64, 64);
-			putQuad(editor->editorBase.x + editor->cursorPos.x - 1,
-				editor->editorBase.y + editor->cursorPos.y + 1,
-				editor->editorBase.x + editor->cursorPos.x,
-				editor->editorBase.y + editor->cursorPos.y + editor->fontSize + 4 - 4,
-				SOLID_FILL);
-		}
-	}
+	int status = 0;
+	if (mouseStatus(SG_LEFT_BUTTON) == SG_BUTTON_DOWN)
+		status |= SG_LEFT_BUTTON;
+	if (mouseStatus(SG_MIDDLE_BUTTON) == SG_BUTTON_DOWN)
+		status |= SG_MIDDLE_BUTTON;
+	if (mouseStatus(SG_RIGHT_BUTTON) == SG_BUTTON_DOWN)
+		status |= SG_RIGHT_BUTTON;
+	if(status)for (auto p : grids)p->mouseDrag(mousePos().x, mousePos().y, status);
+	else for (auto p : grids)p->mouseMove(mousePos().x, mousePos().y);
 }
